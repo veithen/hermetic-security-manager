@@ -28,12 +28,28 @@ public class HermeticSecurityManager extends SecurityManager {
     private static final ThreadLocal<Boolean> inUninstall = new ThreadLocal<>();
 
     private static boolean needCheck(Permission permission) {
-        return permission instanceof FilePermission
-                || permission instanceof SocketPermission
-                || permission instanceof URLPermission
-                || (permission instanceof RuntimePermission
-                        && permission.getName().equals("setSecurityManager")
-                        && !Boolean.TRUE.equals(inUninstall.get()));
+        if (permission instanceof FilePermission || permission instanceof URLPermission) {
+            return true;
+        }
+
+        if (permission instanceof RuntimePermission) {
+            return permission.getName().equals("setSecurityManager")
+                    && !Boolean.TRUE.equals(inUninstall.get());
+        }
+
+        if (permission instanceof SocketPermission) {
+            // Don't check for permission to resolve a host name in a TLD reserved by RFC 2606.
+            // Tests may rely on this triggering an UnknownHostException. Note that this can't be
+            // expressed in a policy because that only works for resolvable names.
+            String host = ((SocketPermission) permission).getName();
+            int idx = host.lastIndexOf(':');
+            if (idx != -1) {
+                host = host.substring(0, idx);
+            }
+            return !host.endsWith(".invalid");
+        }
+
+        return false;
     }
 
     @Override

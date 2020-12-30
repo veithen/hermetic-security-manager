@@ -19,6 +19,9 @@
  */
 package com.github.veithen.hermetic;
 
+import java.net.URL;
+import java.net.UnknownHostException;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,5 +44,10 @@ public class HermeticSecurityManagerTest {
     @Test(expected = SecurityException.class)
     public void testSetSecurityManager() {
         System.setSecurityManager(new SecurityManager());
+    }
+
+    @Test(expected = UnknownHostException.class)
+    public void testInvalidHostname() throws Exception {
+        new URL("http://rfc2606.invalid").openStream().close();
     }
 }

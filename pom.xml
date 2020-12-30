@@ -75,13 +75,10 @@
             <plugin>
                 <groupId>com.github.veithen.maven</groupId>
                 <artifactId>hermetic-maven-plugin</artifactId>
-                <!-- The unit tests need to override the security manager. -->
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <phase>none</phase>
-                    </execution>
-                </executions>
+                <version>0.5.1</version>
+                <configuration>
+                    <generatePolicyOnly>true</generatePolicyOnly>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
