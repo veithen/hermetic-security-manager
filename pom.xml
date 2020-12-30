@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>hermetic-security-manager</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.1.0</version>
 
     <url>https://github.com/veithen/hermetic-security-manager</url>
     <inceptionYear>2019</inceptionYear>
@@ -44,7 +44,7 @@
         <url>https://github.com/veithen/hermetic-security-manager/tree/master</url>
         <connection>scm:git:http://github.com/veithen/hermetic-security-manager.git</connection>
         <developerConnection>scm:git:https://github.com/veithen/hermetic-security-manager.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>1.1.0</tag>
     </scm>
 
     <properties>
