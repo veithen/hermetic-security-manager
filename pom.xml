@@ -75,7 +75,7 @@
             <plugin>
                 <groupId>com.github.veithen.maven</groupId>
                 <artifactId>hermetic-maven-plugin</artifactId>
-                <version>0.5.1</version>
+                <version>0.5.2</version>
                 <configuration>
                     <generatePolicyOnly>true</generatePolicyOnly>
                 </configuration>
