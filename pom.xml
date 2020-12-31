@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.veithen</groupId>
         <artifactId>parent</artifactId>
-        <version>25</version>
+        <version>26</version>
     </parent>
 
     <artifactId>hermetic-security-manager</artifactId>
@@ -75,7 +75,6 @@
             <plugin>
                 <groupId>com.github.veithen.maven</groupId>
                 <artifactId>hermetic-maven-plugin</artifactId>
-                <version>0.5.1</version>
                 <configuration>
                     <generatePolicyOnly>true</generatePolicyOnly>
                 </configuration>
