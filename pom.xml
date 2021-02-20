@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.veithen</groupId>
         <artifactId>parent</artifactId>
-        <version>27</version>
+        <version>28-SNAPSHOT</version>
     </parent>
 
     <artifactId>hermetic-security-manager</artifactId>
@@ -54,8 +54,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.7.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
