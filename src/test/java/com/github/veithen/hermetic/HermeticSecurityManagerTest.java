@@ -24,32 +24,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.net.URL;
 import java.net.UnknownHostException;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class HermeticSecurityManagerTest {
-    @BeforeAll
-    public static void installSecurityManager() {
-        HermeticSecurityManager.install();
-    }
-
-    @AfterAll
-    public static void uninstallSecurityManager() {
-        HermeticSecurityManager.uninstall();
-    }
-
     // We can't allow changing the security manager: the generated policy only has
     // FilePermission and SocketPermission entries, and other permissions are granted
     // by the custom SecurityManager. Using a different one would then inevitable
     // result in security exceptions.
     @Test
+    @WithSecurityManager
     public void testSetSecurityManager() {
         assertThrows(
                 SecurityException.class, () -> System.setSecurityManager(new SecurityManager()));
     }
 
     @Test
+    @WithSecurityManager
     public void testInvalidHostname() throws Exception {
         assertThrows(
                 UnknownHostException.class,
