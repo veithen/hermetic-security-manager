@@ -2,7 +2,7 @@
  * #%L
  * hermetic-security-manager
  * %%
- * Copyright (C) 2019 - 2020 Andreas Veithen
+ * Copyright (C) 2019 - 2021 Andreas Veithen
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
