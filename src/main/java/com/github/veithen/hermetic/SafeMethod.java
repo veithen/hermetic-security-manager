@@ -19,16 +19,17 @@
  */
 package com.github.veithen.hermetic;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+final class SafeMethod {
+    private final String className;
+    private final String methodName;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+    SafeMethod(String className, String methodName) {
+        this.className = className;
+        this.methodName = methodName;
+    }
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-@ExtendWith(WithSecurityManagerExtension.class)
-public @interface WithSecurityManager {
-    boolean asSafeMethod() default false;
+    boolean matches(StackTraceElement stackTraceElement) {
+        return className.equals(stackTraceElement.getClassName())
+                && methodName.equals(stackTraceElement.getMethodName());
+    }
 }

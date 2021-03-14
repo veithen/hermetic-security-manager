@@ -19,6 +19,7 @@
  */
 package com.github.veithen.hermetic;
 
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -32,11 +33,22 @@ public class WithSecurityManagerExtension implements InvocationInterceptor {
             ReflectiveInvocationContext<Method> invocationContext,
             ExtensionContext extensionContext)
             throws Throwable {
+        if (extensionContext.getElement().isPresent()) {
+            AnnotatedElement element = extensionContext.getElement().get();
+            WithSecurityManager annotation = element.getAnnotation(WithSecurityManager.class);
+            if (annotation != null && annotation.asSafeMethod()) {
+                Method method = (Method) element;
+                System.setProperty(
+                        "hermetic.safeMethods",
+                        method.getDeclaringClass().getName() + "." + method.getName());
+            }
+        }
         HermeticSecurityManager.install();
         try {
             invocation.proceed();
         } finally {
             HermeticSecurityManager.uninstall();
+            System.getProperties().remove("hermetic.safeMethods");
         }
     }
 }

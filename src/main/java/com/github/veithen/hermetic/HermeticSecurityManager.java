@@ -23,11 +23,25 @@ import java.io.FilePermission;
 import java.net.SocketPermission;
 import java.net.URLPermission;
 import java.security.Permission;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HermeticSecurityManager extends SecurityManager {
     private static final ThreadLocal<Boolean> inUninstall = new ThreadLocal<>();
 
-    private static boolean needCheck(Permission permission) {
+    private final List<SafeMethod> safeMethods = new ArrayList<>();
+
+    public HermeticSecurityManager() {
+        String safeMethodsProperty = System.getProperty("hermetic.safeMethods", "");
+        if (!safeMethodsProperty.isEmpty()) {
+            for (String s : safeMethodsProperty.split(",")) {
+                int idx = s.lastIndexOf('.');
+                safeMethods.add(new SafeMethod(s.substring(0, idx), s.substring(idx + 1)));
+            }
+        }
+    }
+
+    private static boolean shouldCheck(Permission permission) {
         if (permission instanceof FilePermission || permission instanceof URLPermission) {
             return true;
         }
@@ -50,6 +64,21 @@ public class HermeticSecurityManager extends SecurityManager {
         }
 
         return false;
+    }
+
+    private boolean needCheck(Permission permission) {
+        if (!shouldCheck(permission)) {
+            return false;
+        }
+
+        for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
+            for (SafeMethod safeMethod : safeMethods) {
+                if (safeMethod.matches(stackTraceElement)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

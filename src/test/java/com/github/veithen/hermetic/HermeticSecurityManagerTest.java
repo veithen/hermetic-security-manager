@@ -21,6 +21,7 @@ package com.github.veithen.hermetic;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.File;
 import java.net.URL;
 import java.net.UnknownHostException;
 
@@ -44,5 +45,11 @@ public class HermeticSecurityManagerTest {
         assertThrows(
                 UnknownHostException.class,
                 () -> new URL("http://rfc2606.invalid").openStream().close());
+    }
+
+    @Test
+    @WithSecurityManager(asSafeMethod = true)
+    public void testSafeMethod() {
+        new File(System.getProperty("user.home"), "foobar").exists();
     }
 }
