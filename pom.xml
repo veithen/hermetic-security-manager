@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.veithen</groupId>
         <artifactId>parent</artifactId>
-        <version>36</version>
+        <version>37</version>
     </parent>
 
     <artifactId>hermetic-security-manager</artifactId>
@@ -50,6 +50,7 @@
     <properties>
         <github.repository>hermetic-security-manager</github.repository>
         <javaVersion>1.8</javaVersion>
+        <project.build.outputTimestamp>2021-12-18T17:25:00Z</project.build.outputTimestamp>
     </properties>
 
     <dependencies>
