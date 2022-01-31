@@ -82,6 +82,14 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- systemPropertyVariables doesn't work for java.security.manager because it
+                         must be set at startup. -->
+                    <argLine>${argLine} -Djava.security.manager=allow</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
