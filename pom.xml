@@ -86,7 +86,6 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
                     <projectName>hermetic-security-manager</projectName>
-                    <licenseName>apache_v2</licenseName>
                 </configuration>
             </plugin>
         </plugins>
