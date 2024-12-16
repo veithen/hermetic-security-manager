@@ -89,13 +89,6 @@
                     <argLine>${argLine} -Djava.security.policy==${basedir}/src/test/security.policy -Djava.security.manager=allow</argLine>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <projectName>hermetic-security-manager</projectName>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
