@@ -25,6 +25,7 @@ import java.net.URLPermission;
 import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class HermeticSecurityManager extends SecurityManager {
     private static final ThreadLocal<Boolean> inUninstall = new ThreadLocal<>();
@@ -42,7 +43,13 @@ public class HermeticSecurityManager extends SecurityManager {
     }
 
     private static boolean shouldCheck(Permission permission) {
-        if (permission instanceof FilePermission || permission instanceof URLPermission) {
+        if (permission instanceof FilePermission) {
+            return Pattern.compile(",")
+                    .splitAsStream(((FilePermission) permission).getActions())
+                    .anyMatch("execute"::equals);
+        }
+
+        if (permission instanceof URLPermission) {
             return true;
         }
 

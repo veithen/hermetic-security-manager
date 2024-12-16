@@ -55,6 +55,14 @@ public class HermeticSecurityManagerTest {
     }
 
     @Test
+    @WithSecurityManager
+    public void testExec() {
+        assertThrows(
+                SecurityException.class,
+                () -> Runtime.getRuntime().exec(new String[] {"/foo/bar"}));
+    }
+
+    @Test
     @WithSecurityManager(asSafeMethod = true)
     public void testSafeMethod() {
         new File(System.getProperty("user.home"), "foobar").exists();
