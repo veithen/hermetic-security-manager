@@ -22,6 +22,7 @@ package com.github.veithen.hermetic;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
+import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 
@@ -37,6 +38,12 @@ public class HermeticSecurityManagerTest {
     public void testSetSecurityManager() {
         assertThrows(
                 SecurityException.class, () -> System.setSecurityManager(new SecurityManager()));
+    }
+
+    @Test
+    @WithSecurityManager
+    public void testConnect() {
+        assertThrows(SecurityException.class, () -> new Socket("8.8.8.8", 8888));
     }
 
     @Test
