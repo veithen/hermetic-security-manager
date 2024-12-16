@@ -78,7 +78,7 @@
                 <groupId>com.github.veithen.maven</groupId>
                 <artifactId>hermetic-maven-plugin</artifactId>
                 <configuration>
-                    <generatePolicyOnly>true</generatePolicyOnly>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
@@ -86,7 +86,7 @@
                 <configuration>
                     <!-- systemPropertyVariables doesn't work for java.security.manager because it
                          must be set at startup. -->
-                    <argLine>${argLine} -Djava.security.manager=allow</argLine>
+                    <argLine>${argLine} -Djava.security.policy==${basedir}/src/test/security.policy -Djava.security.manager=allow</argLine>
                 </configuration>
             </plugin>
             <plugin>
